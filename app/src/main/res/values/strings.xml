@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">SDK Example</string>
+    <string name="automatic_scan">Automatic scan</string>
+    <string name="new_scan">New scan</string>
+    <string name="manual_scan">Manual scan</string>
+    <string name="unknown">Unknown</string>
+    <string name="front_image">Front image</string>
+    <string name="names">Names:</string>
+    <string name="given_names">Willeke</string>
+    <string name="surname">Surname:</string>
+    <string name="given_surname">de Bruijn</string>
+    <string name="date_of_birth">Date of birth:</string>
+    <string name="dummy_date">01-01-1970</string>
+</resources>
