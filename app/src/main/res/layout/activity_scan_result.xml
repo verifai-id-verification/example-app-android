@@ -76,13 +76,43 @@
             </TableRow>
         </TableLayout>
         <Button
-            android:id="@+id/button_ok"
+            android:id="@+id/button_new_scan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/new_scan"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp" />
+
+        <Button
+            android:id="@+id/button_security_features"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/run_security_features_check"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp" />
+
+        <Button
+            android:id="@+id/button_nfc_scan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nfc_scan"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp" />
+
+        <Button
+            android:id="@+id/button_viz_check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/visual_information_zone_check"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp" />
     </LinearLayout>
 </ScrollView>

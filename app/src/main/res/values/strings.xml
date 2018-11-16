@@ -11,4 +11,7 @@
     <string name="given_surname">de Bruijn</string>
     <string name="date_of_birth">Date of birth:</string>
     <string name="dummy_date">01-01-1970</string>
+    <string name="run_security_features_check">Run security features check</string>
+    <string name="nfc_scan">NFC scan</string>
+    <string name="visual_information_zone_check">Visual information zone (VIZ) check</string>
 </resources>
