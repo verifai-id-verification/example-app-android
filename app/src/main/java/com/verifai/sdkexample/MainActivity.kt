@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     private fun addVerifaiLogger() {
         Verifai.logger = object:VerifaiLogger{
             override fun log(verifaiDebug: VerifaiDebug) {
-                // todo
+                // handle verifaiDebug
             }
 
             override fun log(event: String) {
