@@ -34,6 +34,10 @@ class VIZCheckFragment : Fragment() {
         }
     }
 
+    /**
+     * Runs the VIZ check
+     * @see: https://docs.verifai.com/android_docs/android-sdk-latest.html#starting-the-viz-check
+     */
     private fun runVIZCheck(verifaiResult: VerifaiResult, verifaiNfcResult: VerifaiNfcResult) {
         Verifai.checkViz(activity!!,
                 verifaiResult = verifaiResult,

@@ -34,6 +34,10 @@ class NfcFragment : Fragment() {
         }
     }
 
+    /**
+     * Reads the NFC
+     * @see: https://docs.verifai.com/android_docs/android-sdk-latest.html#nfc-emrtd-check
+     */
     private fun readNFC(verifaiResult: VerifaiResult) {
         Verifai.readNfc(
                 activity!!,

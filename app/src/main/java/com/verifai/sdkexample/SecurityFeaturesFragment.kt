@@ -32,6 +32,10 @@ class SecurityFeaturesFragment : Fragment() {
         }
     }
 
+    /**
+     * Checks security features
+     * @see: https://docs.verifai.com/android_docs/android-sdk-latest.html#security-features-check
+     */
     private fun runSecurityFeaturesCheck(verifaiResult: VerifaiResult) {
         activity?.let {
             Verifai.checkSecurityFeatures(

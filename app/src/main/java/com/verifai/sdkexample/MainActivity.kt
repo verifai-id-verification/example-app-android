@@ -21,6 +21,7 @@ import java.io.File
  *
  * Starts the example app and handles everything.
  * @see "https://docs.verifai.com/android_docs/android-sdk-latest.html"
+ * @author Igor Pidik - Verifai.com
  * @author Rutger Roffel - Verifai.com
  */
 class MainActivity : AppCompatActivity() {
@@ -41,10 +42,9 @@ class MainActivity : AppCompatActivity() {
         addVerifaiLogger()
 
         val licence = "=== Verifai Licence file V2 ===\n" +
-                "Your licence"
+                "Enter the rest of the licence file over here. Get it from https://dashboard.verifai.com"
 
-
-        Verifai.configure(licence, "com.example.demo", object : VerifaiLicenceListener {
+        Verifai.configure(licence, "sdk_example_android", object : VerifaiLicenceListener {
             override fun onConfigured() {
                 // Handle success -> Verifai can now be started
                 activateButtons()
@@ -113,16 +113,15 @@ class MainActivity : AppCompatActivity() {
     private fun downloadNN() {
         val countryCodes = listOf("NL")
         val destinationDirectory: File? = null // Optional, will be downloaded to cache by default
-
+        Toast.makeText(this@MainActivity, "Downloading started", Toast.LENGTH_LONG).show()
         Verifai.downloadNeuralModel(this, countryCodes, destinationDirectory, object : VerifaiNeuralModelListener {
             override fun onProgress(progress: Int) {
                 // Handle progress. Always notify the user know that the system is still working.
-                // This to achieve the best user experience.
-                Toast.makeText(this@MainActivity, "Downloading resources", Toast.LENGTH_SHORT).show()
             }
 
             override fun onInitialized() {
                 // Handle success
+                Toast.makeText(this@MainActivity, "Downloading finished", Toast.LENGTH_SHORT).show()
                 goScanAutomatic()
             }
 
@@ -205,15 +204,9 @@ class MainActivity : AppCompatActivity() {
      * @param: result: VerifaiResult - The result with information to show
      */
     private fun showResultActivity(result: VerifaiResult) {
-        Log.d("Success", result.toString())
-        // Custom dialog to show the scanned result. It is possible to make a whole new view. This example
-        // will just use a Dialog.
-
-
+        // Show activity with the scan result
         val intent = Intent(this@MainActivity, ScanResultActivity::class.java)
-
         MainActivity.result = result
-
         startActivity(intent)
     }
 }
