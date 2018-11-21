@@ -58,36 +58,14 @@ class VIZCheckFragment : Fragment() {
      * @see: https://docs.verifai.com/android_docs/android-sdk-latest.html#starting-the-viz-check
      */
     private fun showResult(result: VerifaiVizResult) {
-        result.passedAll?.let {
-            passed_all.text = it.toString()
-        }
-
-        result.passedPhoto?.let {
-            passed_photo.text = it.toString()
-        }
-
-        result.passedDateOfBirth?.let {
-            passed_date_of_birth.text = it.toString()
-        }
-
-        result.passedDateOfExpiry?.let {
-            passed_date_of_expiry.text = it.toString()
-        }
-
-        result.passedSex?.let {
-            passed_sex.text = it.toString()
-        }
-
-        result.passedIssuingCountry?.let {
-            passed_issuing_country.text = it.toString()
-        }
-
-        result.passedSurname?.let {
-            passed_surname.text = it.toString()
-        }
-
-        result.passedGivenName?.let {
-            passed_given_name.text = it.toString()
-        }
+        val notChecked = "Not Checked"
+        passed_all.text = result.passedAll?.toString()?: notChecked
+        passed_photo.text = result.passedPhoto?.toString()?: notChecked
+        passed_date_of_birth.text = result.passedDateOfBirth?.toString()?: notChecked
+        passed_date_of_expiry.text = result.passedDateOfExpiry?.toString()?: notChecked
+        passed_sex.text = result.passedSex?.toString()?: notChecked
+        passed_issuing_country.text = result.passedIssuingCountry?.toString()?: notChecked
+        passed_surname.text = result.passedSurname?.toString()?: notChecked
+        passed_given_name.text = result.passedGivenName?.toString()?: notChecked
     }
 }
