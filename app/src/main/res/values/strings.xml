@@ -11,4 +11,31 @@
     <string name="given_surname">de Bruijn</string>
     <string name="date_of_birth">Date of birth:</string>
     <string name="dummy_date">01-01-1970</string>
+    <string name="run_security_features_check">Run security features check</string>
+    <string name="nfc_scan">NFC scan</string>
+    <string name="visual_information_zone_check">Visual information zone (VIZ) check</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="max_score">Max Score:</string>
+    <string name="score">Score:</string>
+    <string name="threshold">Threshold:</string>
+    <string name="scan_completed">scanCompleted</string>
+    <string name="valid_root_certificate">validRootCertificate</string>
+    <string name="valid_certificate">validCertificate</string>
+    <string name="valid_document_signer">validDocumentSigner</string>
+    <string name="chip_authentication_status">chipAuthenticationStatus</string>
+    <string name="active_authentication_status">activeAuthenticationStatus</string>
+    <string name="bac_status">bacStatus</string>
+    <string name="com_sod_match">comSodMatch</string>
+    <string name="mrz_match">mrzMatch</string>
+    <string name="passed_all">passedAll:</string>
+    <string name="passed_given_name">passedGivenName:</string>
+    <string name="passed_surname">passedSurname:</string>
+    <string name="passed_issuing_country">passedIssuingCountry:</string>
+    <string name="passed_sex">passedSex:</string>
+    <string name="passed_date_of_expiry">passedDateOfExpiry:</string>
+    <string name="passed_date_of_birth">passedDateOfBirth:</string>
+    <string name="passed_photo">passedPhoto:</string>
+    <string name="viz_not_checked">Not Checked</string>
 </resources>
