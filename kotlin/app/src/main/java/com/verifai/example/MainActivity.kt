@@ -2,23 +2,22 @@ package com.verifai.example
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 
 import com.verifai.core.Verifai
 import com.verifai.core.exceptions.LicenceNotValidException
 import com.verifai.core.listeners.VerifaiResultListener
-import com.verifai.core.result.VerifaiMrzDataResult
 import com.verifai.core.result.VerifaiResult
-//import com.verifai.liveness.VerifaiLiveness
-//import com.verifai.liveness.VerifaiLivenessCheckListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 /**
  * The MainActivity of this SDK example
  *
- * Starts the example app and handles everything.
+ * Starts the Verifai Example App and handles everything. Do not forget to set a valid licence.
+ * A valid licence can be obtained from https://dashboard.verifai.com/
+ *
  * @see "https://docs.verifai.com/android_docs/android-sdk-latest.html"
  * @author Igor Pidik - Verifai.com
  * @author Rutger Roffel - Verifai.com
@@ -43,7 +42,8 @@ class MainActivity : AppCompatActivity() {
      *      an error when the licence is invalid. Please catch this error.
      */
     private fun start() {
-        val licence = "=== Verifai Licence file V2 ===\n" + "rest of the licence\n"
+        val licence = "=== Verifai Licence file V2 ===\n" +
+        "rest of the licence, obtain it from https://dashboard.verifai.com/ \n"
 
         Verifai.setLicence(this@MainActivity, licence)
         Verifai.startScan(this@MainActivity, object : VerifaiResultListener {
