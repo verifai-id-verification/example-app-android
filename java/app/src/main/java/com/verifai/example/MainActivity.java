@@ -13,6 +13,12 @@ import com.verifai.core.result.VerifaiResult;
 import com.verifai.liveness.VerifaiLiveness;
 import com.verifai.liveness.VerifaiLivenessCheckListener;
 import com.verifai.liveness.result.VerifaiLivenessCheckResults;
+import com.verifai.manual_data_crosscheck.VerifaiManualDataCrossCheck;
+import com.verifai.manual_data_crosscheck.listeners.VerifaiManualDataCrossCheckListener;
+import com.verifai.manual_data_crosscheck.results.VerifaiManualDataCrossCheckResult;
+import com.verifai.manual_security_features_check.VerifaiManualSecurityFeaturesCheck;
+import com.verifai.manual_security_features_check.listeners.VerifaiManualSecurityFeaturesCheckListener;
+import com.verifai.manual_security_features_check.results.VerifaiManualSecurityFeaturesResult;
 import com.verifai.nfc.VerifaiNfc;
 import com.verifai.nfc.VerifaiNfcResultListener;
 import com.verifai.nfc.result.VerifaiNfcResult;
@@ -26,7 +32,7 @@ public class MainActivity extends Activity {
     /**
      * Start the activity and initialize
      *
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +40,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         String licence = "=== Verifai Licence file V2 ===\n" +
-                "rest of the licence\n";
+                "rest of the licence, obtain it from https://dashboard.verifai.com/ \n";
         Verifai.setLicence(this, licence); // The licence string that has been obtained from the dashboard.
 
         // Optional: Attach a Logger
@@ -124,7 +130,7 @@ public class MainActivity extends Activity {
      * Start the Verifai Liveness Check process
      */
     private void startLiveness() {
-        if (VerifaiLiveness.isLivenessCheckSupported(getBaseContext())) {
+        if (VerifaiLiveness.INSTANCE.isLivenessCheckSupported(getBaseContext())) {
             VerifaiLivenessCheckListener livenessResultListener = new VerifaiLivenessCheckListener() {
                 @Override
                 public void onResult(@NotNull VerifaiLivenessCheckResults verifaiLivenessCheckResults) {
@@ -144,9 +150,63 @@ public class MainActivity extends Activity {
     }
 
     /**
+     * Start the Manual Security Features Check process
+     */
+    private void startSecurityFeaturesCheck(VerifaiResult verifaiResult) {
+        VerifaiManualSecurityFeaturesCheckListener verifaiManualSecurityFeaturesCheckListener = new VerifaiManualSecurityFeaturesCheckListener() {
+
+            @Override
+            public void onResult(@NotNull VerifaiManualSecurityFeaturesResult verifaiManualSecurityFeaturesResult) {
+
+            }
+
+            @Override
+            public void onError(@NotNull Throwable throwable) {
+
+            }
+
+            @Override
+            public void onCanceled() {
+
+            }
+        };
+
+        VerifaiManualSecurityFeaturesCheck.start(this, verifaiResult, verifaiManualSecurityFeaturesCheckListener, 80);
+    }
+
+
+    /**
+     * Start the Verifai Manual Security Features Check process
+     *
+     * @param verifaiResult The result from the core
+     */
+    private void startManualDataCrossCheck(VerifaiResult verifaiResult) {
+
+        VerifaiManualDataCrossCheckListener verifaiManualDataCrossCheckListener = new VerifaiManualDataCrossCheckListener() {
+
+            @Override
+            public void onResult(@NotNull VerifaiManualDataCrossCheckResult verifaiManualDataCrossCheckResult) {
+
+            }
+
+            @Override
+            public void onError(@NotNull Throwable throwable) {
+
+            }
+
+            @Override
+            public void onCanceled() {
+
+            }
+        };
+
+        VerifaiManualDataCrossCheck.start(this, verifaiResult, verifaiManualDataCrossCheckListener, null, 5);
+    }
+
+    /**
      * Show the NFC button when needed
      *
-     * @param verifaiResult The result out of the Verifai Scan process
+     * @param verifaiResult The result from the core
      */
     private void showNfcButton(final VerifaiResult verifaiResult) {
         this.findViewById(R.id.start_nfc).setVisibility(View.VISIBLE);

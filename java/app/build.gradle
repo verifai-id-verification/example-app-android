@@ -22,7 +22,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
 
-    implementation 'com.verifai:core:3.0.1'
-    implementation 'com.verifai:nfc:3.0.1'
-    implementation 'com.verifai:liveness-check:3.0.1'
+    // Verifai dependencies
+    implementation('com.verifai:core:3.1.0')
+    implementation 'com.verifai:nfc:3.1.0'
+    implementation 'com.verifai:liveness-check:3.1.0'
+    implementation 'com.verifai:manual-security-features-check:3.1.0'
+    implementation 'com.verifai:manual-data-crosscheck:3.1.0'
 }
