@@ -7,7 +7,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName "3.3.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -23,9 +23,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     // Verifai dependencies
-    implementation('com.verifai:core:3.1.0')
-    implementation 'com.verifai:nfc:3.1.0'
-    implementation 'com.verifai:liveness-check:3.1.0'
-    implementation 'com.verifai:manual-security-features-check:3.1.0'
-    implementation 'com.verifai:manual-data-crosscheck:3.1.0'
+    implementation('com.verifai:core:3.3.0')
+    implementation 'com.verifai:nfc:3.3.0'
+    implementation 'com.verifai:liveness-check:3.3.0'
+    implementation 'com.verifai:manual-security-features-check:3.3.0'
+    implementation 'com.verifai:manual-data-crosscheck:3.3.0'
 }
