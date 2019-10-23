@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun start() {
         val licence = "=== Verifai Licence file V2 ===\n" +
-        "rest of the licence, obtain it from https://dashboard.verifai.com/ \n"
+                "rest of the licence, obtain it from https://dashboard.verifai.com/ \n"
 
         Verifai.setLicence(this@MainActivity, licence)
         Verifai.startScan(this@MainActivity, object : VerifaiResultListener {
