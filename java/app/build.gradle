@@ -23,7 +23,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     // Verifai dependencies
-    implementation('com.verifai:core:3.3.0')
+    implementation('com.verifai:core:3.3.1')
     implementation 'com.verifai:nfc:3.3.0'
     implementation 'com.verifai:liveness-check:3.3.0'
     implementation 'com.verifai:manual-security-features-check:3.3.0'
