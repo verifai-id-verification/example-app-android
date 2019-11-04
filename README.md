@@ -3,7 +3,7 @@ This repository contains two example implementations (Kotlin and Java) of the Ve
 
 Not sure what it does yet? Download our demo from the [Google Play Store](https://play.google.com/store/apps/details?id=com.verifai.demo).
 
-The latest documentation that describes the use of this SDK can be found over here: [https://docs.verifai.com/android_docs/android-sdk-latest.html](https://verifai.dev/mobile-sdk/android-sdk-latest.html#quick-start). Please feel free to submit issues, pull requests and/or [contact our support](https://www.verifai.com/en/support/). 
+The latest documentation that describes the use of this SDK can be found over here: [https://verifai.dev](https://verifai.dev/mobile-sdk/android-sdk-latest.html#quick-start). Please feel free to submit issues, pull requests and/or [contact our support](https://www.verifai.com/en/support/). 
 
 A Verifai license is needed to make the examples work. Request a license at [https://dashboard.verifai.com](https://dashboard.verifai.com).
 
