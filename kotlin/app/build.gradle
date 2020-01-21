@@ -6,14 +6,20 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 29
+
+    packagingOptions {
+        pickFirst '**/*.so'
+    }
+
     defaultConfig {
         applicationId "com.verifai.example"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "3.3.0"
+        versionName "3.4.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        buildConfigField "String", "verifaiLicence", verifaiLicence
     }
     buildTypes {
         release {
@@ -52,9 +58,9 @@ dependencies {
 
 
     // Verifai dependencies
-    implementation 'com.verifai:core:3.3.2'
-    implementation 'com.verifai:nfc:3.3.1'
-    implementation 'com.verifai:liveness-check:3.3.0'
-    implementation 'com.verifai:manual-security-features-check:3.3.0'
-    implementation 'com.verifai:manual-data-crosscheck:3.3.0'
+    implementation 'com.verifai:core:3.4.0'
+    implementation 'com.verifai:nfc:3.4.0'
+    implementation 'com.verifai:liveness-check:3.4.0'
+    implementation 'com.verifai:manual-security-features-check:3.4.0'
+    implementation 'com.verifai:manual-data-crosscheck:3.4.0'
 }
