@@ -50,7 +50,7 @@ class VerifaiResultActivity : AppCompatActivity() {
             }
 
             MainActivity.verifaiResult?.let {
-                VerifaiNfc.start(this, it, true, nfcListener)
+                VerifaiNfc.start(this, it, true, nfcListener, false)
             }
         }
 
