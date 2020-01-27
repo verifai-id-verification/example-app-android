@@ -122,7 +122,7 @@ public class MainActivity extends Activity {
 
                 }
             };
-            VerifaiNfc.start(context, result, true, nfcResultListener);
+            VerifaiNfc.start(context, result, true, nfcResultListener, true);
         }
     }
 
