@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -49,18 +47,16 @@ ext {
     runner_version = "1.0.2"
 }
 
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     testImplementation 'junit:junit:4.12'
 
-
     // Verifai dependencies
-    implementation 'com.verifai:core:3.4.2'
-    implementation 'com.verifai:nfc:3.4.2'
+    implementation 'com.verifai:core:3.4.3'
+    implementation 'com.verifai:nfc:3.4.4'
     implementation 'com.verifai:liveness-check:3.4.0'
-    implementation 'com.verifai:manual-security-features-check:3.4.1'
+    implementation 'com.verifai:manual-security-features-check:3.4.2'
     implementation 'com.verifai:manual-data-crosscheck:3.4.1'
 }
