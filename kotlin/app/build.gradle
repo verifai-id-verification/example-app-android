@@ -25,6 +25,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 ext {
@@ -54,9 +62,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     // Verifai dependencies
-    implementation 'com.verifai:core:3.4.3'
-    implementation 'com.verifai:nfc:3.4.5'
-    implementation 'com.verifai:liveness-check:3.4.0'
-    implementation 'com.verifai:manual-security-features-check:3.4.3'
-    implementation 'com.verifai:manual-data-crosscheck:3.4.2'
+    api 'com.verifai:core:4.0.0'
+    implementation 'com.verifai:nfc:4.0.0'
+    implementation 'com.verifai:liveness-check:4.0.0'
+    implementation 'com.verifai:manual-security-features-check:4.0.0'
+    implementation 'com.verifai:manual-data-crosscheck:4.0.0'
 }
