@@ -40,10 +40,6 @@ class VerifaiResultActivity : AppCompatActivity() {
                     Verifai.logger?.log("NFC Completed")
                 }
 
-                override fun onProgress(progress: Int) {
-
-                }
-
                 override fun onError(e: Throwable) {
                     e.printStackTrace()
                 }
