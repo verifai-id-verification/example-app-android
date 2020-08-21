@@ -28,9 +28,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     // Verifai dependencies
-    implementation 'com.verifai:core:3.4.3'
-    implementation 'com.verifai:nfc:3.4.5'
-    implementation 'com.verifai:liveness-check:3.4.0'
-    implementation 'com.verifai:manual-security-features-check:3.4.3'
-    implementation 'com.verifai:manual-data-crosscheck:3.4.2'
+    implementation 'com.verifai:core:4.2.0'
+    implementation 'com.verifai:nfc:4.2.0'
+    implementation 'com.verifai:liveness-check:4.2.0'
+    implementation 'com.verifai:manual-security-features-check:4.2.0'
+    implementation 'com.verifai:manual-data-crosscheck:4.2.0'
 }

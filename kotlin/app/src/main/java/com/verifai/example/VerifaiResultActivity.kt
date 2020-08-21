@@ -26,11 +26,8 @@ class VerifaiResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_verifai_result)
         setSupportActionBar(toolbar)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         Log.d("result", MainActivity.verifaiResult?.document.toString())
-
         /**
          * Start the NFC process based on the scan result.
          */
@@ -38,6 +35,10 @@ class VerifaiResultActivity : AppCompatActivity() {
             val nfcListener = object : VerifaiNfcResultListener {
                 override fun onResult(result: VerifaiNfcResult) {
                     Verifai.logger?.log("NFC Completed")
+                }
+
+                override fun onCanceled() {
+
                 }
 
                 override fun onError(e: Throwable) {

@@ -113,7 +113,7 @@ public class MainActivity extends Activity {
                 }
 
                 @Override
-                public void onProgress(int i) {
+                public void onCanceled() {
 
                 }
 
