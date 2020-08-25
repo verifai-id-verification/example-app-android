@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     packagingOptions {
         pickFirst '**/*.so'
@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId "com.verifai.example"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "3.4.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -59,10 +59,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
 
     // Verifai dependencies
-    api 'com.verifai:core:4.2.0'
+    api 'com.verifai:core:4.2.1'
     implementation 'com.verifai:nfc:4.2.0'
     implementation 'com.verifai:liveness-check:4.2.0'
     implementation 'com.verifai:manual-security-features-check:4.2.0'
