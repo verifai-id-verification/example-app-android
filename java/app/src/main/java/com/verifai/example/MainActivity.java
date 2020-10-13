@@ -130,7 +130,7 @@ public class MainActivity extends Activity {
      * Start the Verifai Liveness Check process
      */
     private void startLiveness() {
-        if (VerifaiLiveness.INSTANCE.isLivenessCheckSupported(getBaseContext())) {
+        if (VerifaiLiveness.isLivenessCheckSupported(getBaseContext())) {
             VerifaiLivenessCheckListener livenessResultListener = new VerifaiLivenessCheckListener() {
                 @Override
                 public void onResult(@NotNull VerifaiLivenessCheckResults verifaiLivenessCheckResults) {
