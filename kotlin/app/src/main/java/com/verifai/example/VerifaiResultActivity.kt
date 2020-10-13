@@ -27,18 +27,17 @@ class VerifaiResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_verifai_result)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        Log.d("result", MainActivity.verifaiResult?.document.toString())
         /**
          * Start the NFC process based on the scan result.
          */
-        start_nfc_button.setOnClickListener {
+        start_nfc_button?.setOnClickListener {
             val nfcListener = object : VerifaiNfcResultListener {
                 override fun onResult(result: VerifaiNfcResult) {
                     Verifai.logger?.log("NFC Completed")
                 }
 
                 override fun onCanceled() {
-
+                    Verifai.logger?.log("NFC has been canceled")
                 }
 
                 override fun onError(e: Throwable) {
@@ -54,7 +53,7 @@ class VerifaiResultActivity : AppCompatActivity() {
         /**
          * Start the Manual Data Crosscheck based on the scan result.
          */
-        start_manual_data_crosscheck_button.setOnClickListener {
+        start_manual_data_crosscheck_button?.setOnClickListener {
             VerifaiManualDataCrossCheck.start(this, MainActivity.verifaiResult!!, object : VerifaiManualDataCrossCheckListener {
                 override fun onResult(result: VerifaiManualDataCrossCheckResult) {
                     Verifai.logger?.log("Manual Data Crosscheck Completed")
@@ -96,7 +95,8 @@ class VerifaiResultActivity : AppCompatActivity() {
          * Start the Liveness Check. A scan result is not needed. So the liveness check can also run
          * separately.
          */
-        start_liveness_button.setOnClickListener {
+        start_liveness_button?.setOnClickListener {
+            VerifaiLiveness.clear(this)
             VerifaiLiveness.start(this, null, object : VerifaiLivenessCheckListener {
                 override fun onResult(results: VerifaiLivenessCheckResults) {
                     Log.d("results", "done")

@@ -87,3 +87,4 @@ java/gradle/wrapper/gradle-wrapper.jar
 kotlin/gradle/wrapper/gradle-wrapper.jar
 kotlin/nfc-release/nfc-release.aar
 *.aar
+kotlin/gradle.properties
