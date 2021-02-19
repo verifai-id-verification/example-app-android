@@ -14,12 +14,12 @@
         android:text="Press on the Automatic scan button to scan a document automatically"
         android:padding="16dp"/>
 
-    <Button
+    <com.verifai.core.flow.views.uiComponents.buttons.VerifaiPositiveButton
+        android:id="@+id/auto_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/automatic_scan"
-        android:id="@+id/auto_button"
         android:layout_margin="16dp"
-        />
+        android:onClick="start"
+        android:text="@string/automatic_scan" />
 
 </LinearLayout>

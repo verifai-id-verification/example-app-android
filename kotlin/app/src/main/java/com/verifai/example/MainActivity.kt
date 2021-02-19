@@ -3,15 +3,15 @@ package com.verifai.example
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-
-import com.verifai.core.Verifai
-import com.verifai.core.VerifaiConfiguration
+import com.verifai.core.*
 import com.verifai.core.exceptions.LicenceNotValidException
 import com.verifai.core.listeners.VerifaiResultListener
 import com.verifai.core.result.VerifaiResult
+import com.verifai.example.databinding.ActivityMainBinding
+import com.verifai.example.databinding.ActivityVerifaiResultBinding
 import kotlinx.android.synthetic.main.activity_main.*
-
 
 /**
  * The MainActivity of this SDK example
@@ -25,13 +25,12 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        auto_button.setOnClickListener {
-            start()
-        }
+        binding = ActivityMainBinding.inflate(layoutInflater)
     }
 
     /**
@@ -42,22 +41,19 @@ class MainActivity : AppCompatActivity() {
      * 2. Call Verifai.startScan(params) Verifai will startScanning if it has received a valid licence. It will throw
      *      an error when the licence is invalid. Please catch this error.
      */
-    private fun start() {
+    fun start(view: View) {
         val licence = BuildConfig.verifaiLicence
         Verifai.setLicence(this@MainActivity, licence)
-
-        val verifaiConfiguration = VerifaiConfiguration(show_instruction_screens = true)
-        Verifai.configure(verifaiConfiguration)
+        Verifai.configure(getVerifaiConfiguration())
         Verifai.startScan(this@MainActivity, object : VerifaiResultListener {
             override fun onSuccess(result: VerifaiResult) {
                 verifaiResult = result
-                // Go to the result screen
                 val intent = Intent(this@MainActivity, VerifaiResultActivity::class.java)
-                // Start your next activity
                 startActivity(intent)
             }
 
             override fun onCanceled() {
+                Log.d("Verifai", "Cancel")
                 // Return to the main app
             }
 
@@ -68,6 +64,22 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun getVerifaiConfiguration(): VerifaiConfiguration {
+        return VerifaiConfiguration(
+            show_instruction_screens = true,
+            enable_automatic = true,
+            instructionScreenConfiguration = VerifaiInstructionScreenConfiguration(
+                true,
+                mapOf(
+                    Pair(
+                        VerifaiInstructionScreenId.AUTOMATIC_SCAN_FLOW_INSTRUCTION,
+                        VerifaiSingleInstructionScreen(VerifaiInstructionType.HIDDEN)
+                    )
+                )
+            )
+        )
     }
 
     companion object {
