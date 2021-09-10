@@ -66,9 +66,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
 
     // Verifai dependencies
-    api 'com.verifai:core:4.4.0'
-    implementation 'com.verifai:nfc:4.4.0'
-    implementation 'com.verifai:liveness-check:4.4.0'
-    implementation 'com.verifai:manual-security-features-check:4.4.0'
-    implementation 'com.verifai:manual-data-crosscheck:4.4.0'
+    api 'com.verifai:core:4.5.1'
+    implementation 'com.verifai:nfc:4.5.1'
+    implementation 'com.verifai:liveness-check:4.5.1'
+    implementation 'com.verifai:manual-security-features-check:4.5.1'
+    implementation 'com.verifai:manual-data-crosscheck:4.5.1'
 }
