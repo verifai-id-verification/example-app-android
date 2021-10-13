@@ -10,8 +10,6 @@ import com.verifai.core.exceptions.LicenceNotValidException
 import com.verifai.core.listeners.VerifaiResultListener
 import com.verifai.core.result.VerifaiResult
 import com.verifai.example.databinding.ActivityMainBinding
-import com.verifai.example.databinding.ActivityVerifaiResultBinding
-import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * The MainActivity of this SDK example
@@ -69,7 +67,6 @@ class MainActivity : AppCompatActivity() {
     private fun getVerifaiConfiguration(): VerifaiConfiguration {
         return VerifaiConfiguration(
             show_instruction_screens = true,
-            enable_automatic = true,
             instructionScreenConfiguration = VerifaiInstructionScreenConfiguration(
                 true,
                 mapOf(
