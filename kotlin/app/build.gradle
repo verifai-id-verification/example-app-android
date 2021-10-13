@@ -1,9 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     buildFeatures {
         viewBinding true
@@ -16,7 +15,7 @@ android {
     defaultConfig {
         applicationId "com.verifai.example"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 2
         versionName "4.4.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -57,18 +56,18 @@ ext {
     /* Test dependencies */
     junit_version = "4.12"
     runner_version = "1.0.2"
+
+    // Verifai sdk version
+    verifai_version = "4.6.0"
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
 
     // Verifai dependencies
-    api 'com.verifai:core:4.5.1'
-    implementation 'com.verifai:nfc:4.5.1'
-    implementation 'com.verifai:liveness-check:4.5.1'
-    implementation 'com.verifai:manual-security-features-check:4.5.1'
-    implementation 'com.verifai:manual-data-crosscheck:4.5.1'
+    api "com.verifai:core:$verifai_version"
+    implementation "com.verifai:nfc:$verifai_version"
+    implementation "com.verifai:liveness-check:$verifai_version"
+    implementation "com.verifai:manual-security-features-check:$verifai_version"
+    implementation "com.verifai:manual-data-crosscheck:$verifai_version"
 }
