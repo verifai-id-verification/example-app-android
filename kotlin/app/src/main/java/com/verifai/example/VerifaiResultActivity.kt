@@ -7,6 +7,9 @@ import com.verifai.core.Verifai
 import com.verifai.example.databinding.ActivityVerifaiResultBinding
 import com.verifai.liveness.VerifaiLiveness
 import com.verifai.liveness.VerifaiLivenessCheckListener
+import com.verifai.liveness.checks.CloseEyes
+import com.verifai.liveness.checks.FaceMatching
+import com.verifai.liveness.checks.Tilt
 import com.verifai.liveness.result.VerifaiLivenessCheckResults
 import com.verifai.manual_data_crosscheck.VerifaiManualDataCrossCheck
 import com.verifai.manual_data_crosscheck.listeners.VerifaiManualDataCrossCheckListener
@@ -100,23 +103,27 @@ class VerifaiResultActivity : AppCompatActivity() {
         }
 
         /**
-         * Start the Liveness Check. A scan result is not needed. So the liveness check can also run
-         * separately.
+         * Start the Liveness Check. A scan result is only needed for the face match. Without the
+         * face match the liveness check can also run separately.
          */
         binding.contentResult.startLivenessButton.setOnClickListener {
             VerifaiLiveness.clear(this)
-            VerifaiLiveness.start(this, null, object : VerifaiLivenessCheckListener {
-                override fun onResult(results: VerifaiLivenessCheckResults) {
-                    Log.d(TAG, "Done")
-                    for (result in results.resultList) {
-                        Log.d(TAG, "%s finished".format(result.check.instruction))
+            VerifaiLiveness.start(this,
+                arrayListOf(
+                    FaceMatching(this, MainActivity.verifaiResult?.frontImage!!),
+                    CloseEyes(this), Tilt(this, -25)
+                ), object : VerifaiLivenessCheckListener {
+                    override fun onResult(results: VerifaiLivenessCheckResults) {
+                        Log.d(TAG, "Done")
+                        for (result in results.resultList) {
+                            Log.d(TAG, "%s finished".format(result.check.instruction))
+                        }
                     }
-                }
 
-                override fun onError(e: Throwable) {
-                    e.printStackTrace()
-                }
-            })
+                    override fun onError(e: Throwable) {
+                        e.printStackTrace()
+                    }
+                })
         }
 
         binding.contentResult.mrzValue.text = MainActivity.verifaiResult?.mrzData?.mrzString
