@@ -105,23 +105,23 @@ public class MainActivity extends Activity {
      * @param result  The result obtained from scanning the document
      */
     private void startNfc(Context context, VerifaiResult result) {
-        if (VerifaiNfc.isCapable(context) && result.document != null && result.document.nfcType != null && result.mrzData != null && result.mrzData.isNfcKeyValid != null && result.mrzData.isNfcKeyValid) {
-            VerifaiNfcResultListener nfcResultListener = new VerifaiNfcResultListener() {
-                @Override
-                public void onResult(@NotNull VerifaiNfcResult verifaiNfcResult) {
+        VerifaiNfcResultListener nfcResultListener = new VerifaiNfcResultListener() {
+            @Override
+            public void onResult(@NotNull VerifaiNfcResult verifaiNfcResult) {
 
-                }
+            }
 
-                @Override
-                public void onCanceled() {
+            @Override
+            public void onCanceled() {
 
-                }
+            }
 
-                @Override
-                public void onError(@NotNull Throwable throwable) {
+            @Override
+            public void onError(@NotNull Throwable throwable) {
 
-                }
-            };
+            }
+        };
+        if (result != null) {
             VerifaiNfc.start(context, result, true, nfcResultListener, true);
         }
     }
