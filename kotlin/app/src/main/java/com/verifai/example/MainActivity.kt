@@ -19,7 +19,7 @@ import com.verifai.example.databinding.ActivityMainBinding
  *
  * @see "https://verifai.dev"
  * @author Igor Pidik - Verifai.com
- * @author Rutger Roffel - Verifai.com
+ * @author Jeroen Oomkes - Verifai.com
  */
 class MainActivity : AppCompatActivity() {
 
