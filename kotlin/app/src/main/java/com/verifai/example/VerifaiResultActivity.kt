@@ -10,6 +10,7 @@ import com.verifai.liveness.VerifaiLivenessCheckListener
 import com.verifai.liveness.checks.CloseEyes
 import com.verifai.liveness.checks.FaceMatching
 import com.verifai.liveness.checks.Tilt
+import com.verifai.liveness.result.VerifaiFaceMatchingCheckResult
 import com.verifai.liveness.result.VerifaiLivenessCheckResults
 import com.verifai.manual_data_crosscheck.VerifaiManualDataCrossCheck
 import com.verifai.manual_data_crosscheck.listeners.VerifaiManualDataCrossCheckListener
@@ -117,13 +118,21 @@ class VerifaiResultActivity : AppCompatActivity() {
                         Log.d(TAG, "Done")
                         for (result in results.resultList) {
                             Log.d(TAG, "%s finished".format(result.check.instruction))
+                            Log.d(TAG, "%s status".format(result.status))
+                            if (result is VerifaiFaceMatchingCheckResult) {
+                                Log.d(TAG, "Face match?: ${result.match}")
+                                result.confidence?.let {
+                                    Log.d(TAG, "Face match confidence ${(it * 100).toInt()}%")
+                                }
+                            }
                         }
                     }
 
                     override fun onError(e: Throwable) {
                         e.printStackTrace()
                     }
-                })
+                }
+            )
         }
 
         binding.contentResult.mrzValue.text = MainActivity.verifaiResult?.mrzData?.mrzString
