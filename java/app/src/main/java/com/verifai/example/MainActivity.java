@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.verifai.core.Verifai;
 import com.verifai.core.VerifaiConfiguration;
@@ -12,6 +15,10 @@ import com.verifai.core.listeners.VerifaiResultListener;
 import com.verifai.core.result.VerifaiResult;
 import com.verifai.liveness.VerifaiLiveness;
 import com.verifai.liveness.VerifaiLivenessCheckListener;
+import com.verifai.liveness.checks.CloseEyes;
+import com.verifai.liveness.checks.FaceMatching;
+import com.verifai.liveness.checks.Tilt;
+import com.verifai.liveness.checks.VerifaiLivenessCheck;
 import com.verifai.liveness.result.VerifaiLivenessCheckResults;
 import com.verifai.manual_data_crosscheck.VerifaiManualDataCrossCheck;
 import com.verifai.manual_data_crosscheck.listeners.VerifaiManualDataCrossCheckListener;
@@ -23,11 +30,18 @@ import com.verifai.nfc.VerifaiNfc;
 import com.verifai.nfc.VerifaiNfcResultListener;
 import com.verifai.nfc.result.VerifaiNfcResult;
 
-import android.util.Log;
-
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
+
 public class MainActivity extends Activity {
+    private VerifaiResult result;
+
+    public MainActivity() {
+        result = null;
+    }
 
     /**
      * Start the activity and initialize
@@ -39,8 +53,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String licence = "=== Verifai Licence file V2 ===\n" +
-                "rest of the licence, obtain it from https://dashboard.verifai.com/ \n";
+        String licence = BuildConfig.verifaiLicence;
         Verifai.setLicence(this, licence); // The licence string that has been obtained from the dashboard.
 
         // Optional: Attach a Logger
@@ -86,8 +99,9 @@ public class MainActivity extends Activity {
             }
 
             @Override
-            public void onSuccess(VerifaiResult verifaiResult) {
-                showNfcButton(verifaiResult);
+            public void onSuccess(@NonNull VerifaiResult verifaiResult) {
+                result = verifaiResult;
+                showNfcButton();
             }
 
             @Override
@@ -102,9 +116,8 @@ public class MainActivity extends Activity {
      * Start the Verifai NFC process
      *
      * @param context The current context
-     * @param result  The result obtained from scanning the document
      */
-    private void startNfc(Context context, VerifaiResult result) {
+    private void startNfc(Context context) {
         VerifaiNfcResultListener nfcResultListener = new VerifaiNfcResultListener() {
             @Override
             public void onResult(@NotNull VerifaiNfcResult verifaiNfcResult) {
@@ -143,7 +156,14 @@ public class MainActivity extends Activity {
                 }
             };
 
-            VerifaiLiveness.start(this, null, livenessResultListener);
+            ArrayList<VerifaiLivenessCheck> checks = new ArrayList<>();
+            if (result != null) {
+                checks.add(new FaceMatching(this, Objects.requireNonNull(result.getFrontImage())));
+            }
+            checks.add(new Tilt(this, -25));
+            checks.add(new CloseEyes(this, 2));
+
+            VerifaiLiveness.start(this, checks, livenessResultListener);
         } else {
             // Sorry, the Liveness check is not supported by this device
         }
@@ -205,15 +225,13 @@ public class MainActivity extends Activity {
 
     /**
      * Show the NFC button when needed
-     *
-     * @param verifaiResult The result from the core
      */
-    private void showNfcButton(final VerifaiResult verifaiResult) {
+    private void showNfcButton() {
         this.findViewById(R.id.start_nfc).setVisibility(View.VISIBLE);
         this.findViewById(R.id.start_nfc).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startNfc(getBaseContext(), verifaiResult);
+                startNfc(getBaseContext());
             }
         });
     }

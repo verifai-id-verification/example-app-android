@@ -88,3 +88,7 @@ kotlin/gradle/wrapper/gradle-wrapper.jar
 kotlin/nfc-release/nfc-release.aar
 *.aar
 kotlin/gradle.properties
+
+# VS Code project files
+.project
+org.eclipse.buildship.core.prefs
