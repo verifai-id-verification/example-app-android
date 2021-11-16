@@ -36,7 +36,7 @@ android {
 
 ext {
     // Verifai sdk version
-    verifai_version = "4.6.0"
+    verifai_version = "4.8.0"
 }
 
 dependencies {
@@ -46,6 +46,4 @@ dependencies {
     api "com.verifai:core:$verifai_version"
     implementation "com.verifai:nfc:$verifai_version"
     implementation "com.verifai:liveness-check:$verifai_version"
-    implementation "com.verifai:manual-security-features-check:$verifai_version"
-    implementation "com.verifai:manual-data-crosscheck:$verifai_version"
 }

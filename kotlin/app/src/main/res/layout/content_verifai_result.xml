@@ -19,18 +19,6 @@
             android:layout_height="wrap_content"
             android:text="Start NFC" />
 
-        <Button
-            android:id="@+id/start_manual_data_crosscheck_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Start Manual Data Crosscheck" />
-
-        <Button
-            android:id="@+id/start_manual_security_features_check_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Start Security Features Check" />
-
         <TextView
             android:id="@+id/mrz_value"
             android:layout_width="wrap_content"

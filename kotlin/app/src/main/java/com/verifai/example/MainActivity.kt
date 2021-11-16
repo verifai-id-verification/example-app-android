@@ -67,15 +67,7 @@ class MainActivity : AppCompatActivity() {
     private fun getVerifaiConfiguration(): VerifaiConfiguration {
         return VerifaiConfiguration(
             show_instruction_screens = true,
-            instructionScreenConfiguration = VerifaiInstructionScreenConfiguration(
-                true,
-                mapOf(
-                    Pair(
-                        VerifaiInstructionScreenId.AUTOMATIC_SCAN_FLOW_INSTRUCTION,
-                        VerifaiSingleInstructionScreen(VerifaiInstructionType.HIDDEN)
-                    )
-                )
-            )
+            enableVisualInspection = true,
         )
     }
 
