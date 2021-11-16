@@ -20,12 +20,6 @@ import com.verifai.liveness.checks.FaceMatching;
 import com.verifai.liveness.checks.Tilt;
 import com.verifai.liveness.checks.VerifaiLivenessCheck;
 import com.verifai.liveness.result.VerifaiLivenessCheckResults;
-import com.verifai.manual_data_crosscheck.VerifaiManualDataCrossCheck;
-import com.verifai.manual_data_crosscheck.listeners.VerifaiManualDataCrossCheckListener;
-import com.verifai.manual_data_crosscheck.results.VerifaiManualDataCrossCheckResult;
-import com.verifai.manual_security_features_check.VerifaiManualSecurityFeaturesCheck;
-import com.verifai.manual_security_features_check.listeners.VerifaiManualSecurityFeaturesCheckListener;
-import com.verifai.manual_security_features_check.results.VerifaiManualSecurityFeaturesResult;
 import com.verifai.nfc.VerifaiNfc;
 import com.verifai.nfc.VerifaiNfcResultListener;
 import com.verifai.nfc.result.VerifaiNfcResult;
@@ -167,60 +161,6 @@ public class MainActivity extends Activity {
         } else {
             // Sorry, the Liveness check is not supported by this device
         }
-    }
-
-    /**
-     * Start the Manual Security Features Check process
-     */
-    private void startSecurityFeaturesCheck(VerifaiResult verifaiResult) {
-        VerifaiManualSecurityFeaturesCheckListener verifaiManualSecurityFeaturesCheckListener = new VerifaiManualSecurityFeaturesCheckListener() {
-
-            @Override
-            public void onResult(@NotNull VerifaiManualSecurityFeaturesResult verifaiManualSecurityFeaturesResult) {
-
-            }
-
-            @Override
-            public void onError(@NotNull Throwable throwable) {
-
-            }
-
-            @Override
-            public void onCanceled() {
-
-            }
-        };
-
-        VerifaiManualSecurityFeaturesCheck.start(this, verifaiResult, verifaiManualSecurityFeaturesCheckListener, 80);
-    }
-
-
-    /**
-     * Start the Verifai Manual Security Features Check process
-     *
-     * @param verifaiResult The result from the core
-     */
-    private void startManualDataCrossCheck(VerifaiResult verifaiResult) {
-
-        VerifaiManualDataCrossCheckListener verifaiManualDataCrossCheckListener = new VerifaiManualDataCrossCheckListener() {
-
-            @Override
-            public void onResult(@NotNull VerifaiManualDataCrossCheckResult verifaiManualDataCrossCheckResult) {
-
-            }
-
-            @Override
-            public void onError(@NotNull Throwable throwable) {
-
-            }
-
-            @Override
-            public void onCanceled() {
-
-            }
-        };
-
-        VerifaiManualDataCrossCheck.start(this, verifaiResult, verifaiManualDataCrossCheckListener, null, 5);
     }
 
     /**

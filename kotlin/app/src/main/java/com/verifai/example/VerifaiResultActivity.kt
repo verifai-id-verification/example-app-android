@@ -1,7 +1,9 @@
 package com.verifai.example
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.verifai.core.Verifai
 import com.verifai.example.databinding.ActivityVerifaiResultBinding
@@ -12,13 +14,6 @@ import com.verifai.liveness.checks.FaceMatching
 import com.verifai.liveness.checks.Tilt
 import com.verifai.liveness.result.VerifaiFaceMatchingCheckResult
 import com.verifai.liveness.result.VerifaiLivenessCheckResults
-import com.verifai.manual_data_crosscheck.VerifaiManualDataCrossCheck
-import com.verifai.manual_data_crosscheck.listeners.VerifaiManualDataCrossCheckListener
-import com.verifai.manual_data_crosscheck.results.VerifaiManualDataCrossCheckResult
-import com.verifai.manual_security_features_check.VerifaiManualSecurityFeaturesCheck
-import com.verifai.manual_security_features_check.exceptions.SecurityFeaturesNotFoundException
-import com.verifai.manual_security_features_check.listeners.VerifaiManualSecurityFeaturesCheckListener
-import com.verifai.manual_security_features_check.results.VerifaiManualSecurityFeaturesResult
 import com.verifai.nfc.VerifaiNfc
 import com.verifai.nfc.VerifaiNfcResultListener
 import com.verifai.nfc.result.VerifaiNfcResult
@@ -58,52 +53,6 @@ class VerifaiResultActivity : AppCompatActivity() {
         }
 
         /**
-         * Start the Manual Data Crosscheck based on the scan result.
-         */
-        binding.contentResult.startManualDataCrosscheckButton.setOnClickListener {
-            VerifaiManualDataCrossCheck.start(
-                this,
-                MainActivity.verifaiResult!!,
-                object : VerifaiManualDataCrossCheckListener {
-                    override fun onResult(result: VerifaiManualDataCrossCheckResult) {
-                        Verifai.logger?.log("Manual Data Crosscheck Completed")
-                    }
-
-                    override fun onCanceled() {
-                    }
-
-                    override fun onError(e: Throwable) {
-                        e.printStackTrace()
-                    }
-                })
-        }
-
-        /**
-         * Start the Manual Security Features Check based on the scan result.
-         */
-        binding.contentResult.startManualSecurityFeaturesCheckButton.setOnClickListener {
-            VerifaiManualSecurityFeaturesCheck.start(
-                this,
-                MainActivity.verifaiResult,
-                object : VerifaiManualSecurityFeaturesCheckListener {
-                    override fun onResult(result: VerifaiManualSecurityFeaturesResult) {
-                        Verifai.logger?.log("Manual Security Features Completed")
-                    }
-
-                    override fun onCanceled() {
-
-                    }
-
-                    override fun onError(e: Throwable) {
-                        if (e is SecurityFeaturesNotFoundException) {
-                            Verifai.logger?.log("This document does not have any security features.")
-                        }
-                    }
-
-                })
-        }
-
-        /**
          * Start the Liveness Check. A scan result is only needed for the face match. Without the
          * face match the liveness check can also run separately.
          */
@@ -138,6 +87,21 @@ class VerifaiResultActivity : AppCompatActivity() {
         binding.contentResult.mrzValue.text = MainActivity.verifaiResult?.mrzData?.mrzString
         binding.contentResult.firstNameValue.text = MainActivity.verifaiResult?.mrzData?.firstName
         binding.contentResult.lastNameValue.text = MainActivity.verifaiResult?.mrzData?.lastName
+
+        MainActivity.verifaiResult?.visualInspectionZoneResult.also { map ->
+            binding.vizDetailsBtn.setOnClickListener {
+                val intent = Intent(this, GeneralResultActivity::class.java)
+                intent.putExtra("title", "VIZ result")
+                val res: HashMap<String, String> = HashMap()
+                map?.forEach {
+                    res[it.key] = it.value
+                }
+                intent.putExtra("result", res)
+                startActivity(intent)
+            }
+        } ?: run {
+            binding.vizDetailsBtn.visibility = View.GONE
+        }
     }
 
     companion object {
