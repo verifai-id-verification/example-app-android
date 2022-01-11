@@ -17,7 +17,7 @@ licence string to the right format in gradle.properties, the
 `create_licence_string.sh` can be used.
 
 ```bash
-.\create_licence_string "my licence string from the dashboard"
+./create_licence_string "my licence string from the dashboard"
 ```
 
 The "Android" name is property of
