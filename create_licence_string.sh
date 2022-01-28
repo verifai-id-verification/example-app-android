@@ -9,9 +9,9 @@ fi
 
 TMP_STR="verifaiLicence="
 while IFS= read -r line; do
-    TMP_STR="$TMP_STR\"$line\\\\\\\\n\" +\\\\n\\\\\\n\\"
+    TMP_STR="$TMP_STR\"$line\\\\\\\\n\" +\\\\\n\\"
 done <<< "$LICENCE_STR"
-TMP_STR=${TMP_STR::-15}
+TMP_STR=${TMP_STR::-13}
 echo ""
 printf "$TMP_STR\""
 echo ""
