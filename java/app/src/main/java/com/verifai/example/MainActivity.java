@@ -171,7 +171,7 @@ public class MainActivity extends Activity {
         this.findViewById(R.id.start_nfc).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startNfc(getBaseContext());
+                startNfc(MainActivity.this);
             }
         });
     }
