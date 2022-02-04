@@ -10,6 +10,8 @@ import com.verifai.core.exceptions.LicenceNotValidException
 import com.verifai.core.listeners.VerifaiResultListener
 import com.verifai.core.result.VerifaiResult
 import com.verifai.example.databinding.ActivityMainBinding
+import com.verifai.nfc.VerifaiDebug
+import com.verifai.nfc.VerifaiNfcLogger;
 
 /**
  * The MainActivity of this SDK example
@@ -29,6 +31,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
+
+        Verifai.logger = object : VerifaiNfcLogger {
+            private val tag = "v-example"
+
+            override fun log(e: Throwable) {
+                Log.e(tag, Log.getStackTraceString(e))
+            }
+
+            override fun log(event: String) {
+                Log.i(tag, event)
+            }
+
+            override fun log(debug: VerifaiDebug) {
+                // Example, logging one of the nfc debug fields
+                Log.d(tag, "completed: ${debug.nfcDebug.scanCompleted}")
+            }
+        }
     }
 
     /**

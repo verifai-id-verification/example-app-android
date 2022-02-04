@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 
 import com.verifai.core.Verifai;
 import com.verifai.core.VerifaiConfiguration;
-import com.verifai.core.VerifaiLogger;
 import com.verifai.core.listeners.VerifaiResultListener;
 import com.verifai.core.result.VerifaiResult;
 import com.verifai.liveness.VerifaiLiveness;
@@ -20,7 +19,9 @@ import com.verifai.liveness.checks.FaceMatching;
 import com.verifai.liveness.checks.Tilt;
 import com.verifai.liveness.checks.VerifaiLivenessCheck;
 import com.verifai.liveness.result.VerifaiLivenessCheckResults;
+import com.verifai.nfc.VerifaiDebug;
 import com.verifai.nfc.VerifaiNfc;
+import com.verifai.nfc.VerifaiNfcLogger;
 import com.verifai.nfc.VerifaiNfcResultListener;
 import com.verifai.nfc.result.VerifaiNfcResult;
 
@@ -51,10 +52,18 @@ public class MainActivity extends Activity {
         Verifai.setLicence(this, licence); // The licence string that has been obtained from the dashboard.
 
         // Optional: Attach a Logger
-        Verifai.logger = new VerifaiLogger() {
+        Verifai.logger = new VerifaiNfcLogger() {
+            private final String tag = "v-example";
+
             @Override
             public void log(@NotNull Throwable throwable) {
 
+            }
+
+            @Override
+            public void log(@NotNull VerifaiDebug debug) {
+                // Example, logging one of the nfc debug fields
+                Log.d(tag, String.format("completed: %b", debug.getNfcDebug().getScanCompleted()));
             }
 
             @Override
@@ -89,7 +98,7 @@ public class MainActivity extends Activity {
         VerifaiResultListener resultListener = new VerifaiResultListener() {
             @Override
             public void onCanceled() {
-
+                Log.d("main", "canceled");
             }
 
             @Override
@@ -100,7 +109,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onError(@NotNull Throwable throwable) {
-                Log.d("error", throwable.getMessage());
+                Log.e("main", throwable.getMessage());
             }
         };
         Verifai.startScan(this, resultListener);
