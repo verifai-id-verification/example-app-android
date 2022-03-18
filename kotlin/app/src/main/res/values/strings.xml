@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SDK Example</string>
+    <string name="app_name">Verifai Example Kotlin</string>
     <string name="automatic_scan">Automatic scan</string>
     <string name="new_scan">New scan</string>
     <string name="manual_scan">Manual scan</string>

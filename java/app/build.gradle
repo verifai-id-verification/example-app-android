@@ -9,11 +9,13 @@ android {
     }
 
     packagingOptions {
-        pickFirst '**/*.so'
+        jniLibs {
+            pickFirsts += ['**/*.so']
+        }
     }
 
     defaultConfig {
-        applicationId "com.verifai.example"
+        applicationId "com.verifai.example.java"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 2
