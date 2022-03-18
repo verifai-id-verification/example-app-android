@@ -1,0 +1,20 @@
+stages:
+  - build
+
+
+# --- Build ---
+
+android build sdk:
+  image: alvrme/alpine-android:android-31-jdk11
+  stage: build
+  artifacts:
+    expire_in: 8 hours
+    paths:
+      - java/app/build/outputs/apk/release
+      - kotlin/app/build/outputs/apk/release
+  script:
+    - pushd java
+    - ./gradlew app:build
+    - popd
+    - pushd kotlin
+    - ./gradlew app:build
