@@ -66,7 +66,7 @@ ext {
     runner_version = "1.0.2"
 
     // Verifai sdk version
-    verifai_version = "4.9.0"
+    verifai_version = "4.10.0"
 }
 
 dependencies {
