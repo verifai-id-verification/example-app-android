@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
     buildToolsVersion "31.0.0"
 
     buildFeatures {
@@ -11,7 +11,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerExtensionVersion '1.3.1'
     }
 
     packagingOptions {
@@ -23,7 +23,7 @@ android {
     defaultConfig {
         applicationId "com.verifai.example.kotlin"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 3
         versionName "4.8.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -47,36 +47,15 @@ android {
 }
 
 ext {
-    gson_version = "2.8.2"
-    support_version = "27.1.1"
-    tensorflow_version = "1.12.0"
-    rx_android_version = "2.0.2"
-
-    /* Api dependencies */
-    oltu_version = "1.0.1"
-    retrofit_version = "2.3.0"
-    swagger_annotations_version = "1.5.15"
-    rx_java_version = "2.1.1"
-    threetenbp_version = "1.3.5"
-    json_fire_version = "1.8.0"
-    javax_annotation_version = "1.0"
-
-    /* Test dependencies */
-    junit_version = "4.12"
-    runner_version = "1.0.2"
-
     // Verifai sdk version
-    verifai_version = "4.10.0"
+    verifai_version = "4.11.0"
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.13.2'
-
-    implementation 'androidx.activity:activity-compose:1.4.0'
+    implementation 'androidx.activity:activity-compose:1.5.1'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
     // Verifai dependencies
