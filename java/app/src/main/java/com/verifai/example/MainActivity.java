@@ -1,41 +1,36 @@
 package com.verifai.example;
 
-import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-import com.verifai.core.Verifai;
-import com.verifai.core.VerifaiConfiguration;
-import com.verifai.core.listeners.VerifaiResultListener;
-import com.verifai.core.result.VerifaiResult;
-import com.verifai.liveness.VerifaiLiveness;
-import com.verifai.liveness.VerifaiLivenessCheckListener;
-import com.verifai.liveness.checks.CloseEyes;
-import com.verifai.liveness.checks.FaceMatching;
-import com.verifai.liveness.checks.Tilt;
-import com.verifai.liveness.checks.VerifaiLivenessCheck;
-import com.verifai.liveness.result.VerifaiLivenessCheckResults;
-import com.verifai.nfc.VerifaiDebug;
-import com.verifai.nfc.VerifaiNfc;
-import com.verifai.nfc.VerifaiNfcLogger;
-import com.verifai.nfc.VerifaiNfcResultListener;
-import com.verifai.nfc.result.VerifaiNfcResult;
+import com.verifai.core.pub.CoreConfiguration;
+import com.verifai.core.pub.Verifai;
+import com.verifai.core.pub.VerifaiLogger;
+import com.verifai.core.pub.exceptions.LicenseNotValidException;
+import com.verifai.core.pub.listeners.ResultListener;
+import com.verifai.core.pub.result.CoreResult;
+import com.verifai.example.databinding.ActivityMainBinding;
+import com.verifai.nfc.pub.VerifaiNfc;
+import com.verifai.nfc.pub.listeners.NfcResultListener;
+import com.verifai.nfc.pub.result.NfcResult;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
-
-public class MainActivity extends Activity {
-    private VerifaiResult result;
+/**
+ * This activity shows how to start the Core flow and the NFC (Core + NFC) flow.
+ * In your own application, you'll implement only one of the two.
+ */
+public class MainActivity extends AppCompatActivity {
+    public static CoreResult coreResult;
+    public static NfcResult nfcResult;
 
     public MainActivity() {
-        result = null;
+        coreResult = null;
+        nfcResult = null;
     }
 
     /**
@@ -46,13 +41,15 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        String licence = BuildConfig.verifaiLicence;
-        Verifai.setLicence(this, licence); // The licence string that has been obtained from the dashboard.
+        // Use the license that has been obtained from the Verifai dashboard
+        String license = BuildConfig.verifaiLicense;
+        Verifai.setLicense(this, license);
 
         // Optional: Attach a Logger
-        Verifai.logger = new VerifaiNfcLogger() {
+        Verifai.logger = new VerifaiLogger() {
             private final String tag = "v-example";
 
             @Override
@@ -61,50 +58,35 @@ public class MainActivity extends Activity {
             }
 
             @Override
-            public void log(@NotNull VerifaiDebug debug) {
-                // Example, logging one of the nfc debug fields
-                Log.d(tag, String.format("completed: %b", debug.getNfcDebug().getScanCompleted()));
-            }
-
-            @Override
             public void log(@NotNull String s) {
 
             }
         };
 
-        this.findViewById(R.id.start_verifai).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                start();
-            }
-        });
-
-        this.findViewById(R.id.start_liveness).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startLiveness();
+        binding.startButton.setOnClickListener(v -> start());
+        binding.startNfcButton.setOnClickListener(v -> {
+            try {
+                startNfc();
+            } catch (LicenseNotValidException e) {
+                Log.e("main", e.getMessage());
             }
         });
     }
 
 
     /**
-     * Start the Verifai scan process
+     * Start the Verifai core flow
      */
     private void start() {
-        VerifaiConfiguration configuration = new VerifaiConfiguration();
-        configuration.setScanDuration(5.0);
+        CoreConfiguration configuration = new CoreConfiguration();
+        configuration.setEnableVisualInspection(true);
         Verifai.configure(configuration);
-        VerifaiResultListener resultListener = new VerifaiResultListener() {
+        ResultListener resultListener = new ResultListener() {
             @Override
-            public void onCanceled() {
-                Log.d("main", "canceled");
-            }
-
-            @Override
-            public void onSuccess(@NonNull VerifaiResult verifaiResult) {
-                result = verifaiResult;
-                showNfcButton();
+            public void onSuccess(@NonNull CoreResult coreResult) {
+                MainActivity.coreResult = coreResult;
+                Intent intent = new Intent(MainActivity.this, VerifaiResultActivity.class);
+                startActivity(intent);
             }
 
             @Override
@@ -112,76 +94,27 @@ public class MainActivity extends Activity {
                 Log.e("main", throwable.getMessage());
             }
         };
-        Verifai.startScan(this, resultListener);
+        Verifai.start(this, resultListener, "java-example-core");
     }
 
     /**
-     * Start the Verifai NFC process
-     *
-     * @param context The current context
+     * Start the Verifai NFC flow (includes the core)
      */
-    private void startNfc(Context context) {
-        VerifaiNfcResultListener nfcResultListener = new VerifaiNfcResultListener() {
+    private void startNfc() throws LicenseNotValidException {
+        NfcResultListener nfcResultListener = new NfcResultListener() {
             @Override
-            public void onResult(@NotNull VerifaiNfcResult verifaiNfcResult) {
-
-            }
-
-            @Override
-            public void onCanceled() {
-
+            public void onSuccess(@NotNull NfcResult nfcResult) {
+                MainActivity.nfcResult = nfcResult;
+                Intent intent = new Intent(MainActivity.this, VerifaiResultActivity.class);
+                startActivity(intent);
             }
 
             @Override
             public void onError(@NotNull Throwable throwable) {
-
+                Log.e("main", throwable.getMessage());
             }
         };
-        if (result != null) {
-            VerifaiNfc.start(context, result, true, nfcResultListener, true);
-        }
-    }
 
-    /**
-     * Start the Verifai Liveness Check process
-     */
-    private void startLiveness() {
-        if (VerifaiLiveness.isLivenessCheckSupported(getBaseContext())) {
-            VerifaiLivenessCheckListener livenessResultListener = new VerifaiLivenessCheckListener() {
-                @Override
-                public void onResult(@NotNull VerifaiLivenessCheckResults verifaiLivenessCheckResults) {
-
-                }
-
-                @Override
-                public void onError(@NotNull Throwable throwable) {
-
-                }
-            };
-
-            ArrayList<VerifaiLivenessCheck> checks = new ArrayList<>();
-            if (result != null) {
-                checks.add(new FaceMatching(this, Objects.requireNonNull(result.getFrontImage())));
-            }
-            checks.add(new Tilt(this, -25));
-            checks.add(new CloseEyes(this, 2));
-
-            VerifaiLiveness.start(this, checks, livenessResultListener);
-        } else {
-            // Sorry, the Liveness check is not supported by this device
-        }
-    }
-
-    /**
-     * Show the NFC button when needed
-     */
-    private void showNfcButton() {
-        this.findViewById(R.id.start_nfc).setVisibility(View.VISIBLE);
-        this.findViewById(R.id.start_nfc).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startNfc(MainActivity.this);
-            }
-        });
+        VerifaiNfc.start(this, nfcResultListener, "java-example-nfc");
     }
 }

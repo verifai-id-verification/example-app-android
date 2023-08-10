@@ -3,27 +3,28 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.2'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath 'com.android.tools.build:gradle:7.4.2'
     }
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
-        maven {
-            url = 'https://dashboard.verifai.com/downloads/sdk/maven/'
-        }
+        mavenCentral()
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+def secretProps = new Properties()
+file("secret.properties").withInputStream { secretProps.load(it) }
+
+ext {
+    verifaiLicense = secretProps.verifaiLicense
 }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Verifai Example Java</string>
+    <string name="title_activity_verifai_result">VerifaiResultActivity</string>
+    <string name="button_core_start_text">Start Core</string>
+    <string name="button_nfc_start_text">Start NFC</string>
+    <string name="button_liveness_start_text">Start Liveness</string>
 </resources>
