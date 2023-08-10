@@ -14,7 +14,9 @@ android build sdk:
       - kotlin/app/build/outputs/apk/release
   script:
     - pushd java
+    - echo "verifaiLicense=\"dummy\"" > secret.properties
     - ./gradlew app:build
     - popd
     - pushd kotlin
+    - echo "verifaiLicense=\"dummy\"" > secret.properties
     - ./gradlew app:build

@@ -11,17 +11,30 @@ here: [docs](https://docs.verifai.com/sdk/android/). Please feel free to submit
 issues, pull requests and/or
 [contact our support](https://www.verifai.com/en/support/).
 
-A Verifai licence is needed to make the examples work. Request a licence at
-[https://dashboard.verifai.com](https://dashboard.verifai.com). To convert the
-licence string to the right format in gradle.properties, the
-`create_licence_string.sh` can be used.
-
-```bash
-./create_licence_string "my licence string from the dashboard"
-```
-
 The "Android" name is property of
 [Google LLC](https://developer.android.com/legal).
 
 Verifai Copyright © | All rights reserved | The Verifai terms and conditions
 apply: [https://www.verifai.com/en/terms-and-conditions/](https://www.verifai.com/en/terms-and-conditions/)
+
+## Get started
+
+A Verifai license is needed to make the examples work.
+Request a license at [https://dashboard.verifai.com](https://dashboard.verifai.com).
+The license string has to be converted to the right format for gradle.
+The `create_license_string.sh` can be used to do this.
+
+```bash
+./create_license_string "my license string from the dashboard"
+```
+
+Put the output license in a file called `secret.properties` and set the verifaiLicense property:
+
+```gradle
+verifaiLicense="=== Verifai Licence file V2 ===\\n" +\
+"...\\n" +\
+"..."
+```
+
+This file should be located in the same folder as the top level `build.gradle` file.
+It is ignored by version control.

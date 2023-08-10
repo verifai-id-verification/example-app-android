@@ -88,3 +88,8 @@ kotlin/gradle.properties
 # VS Code project files
 .project
 org.eclipse.buildship.core.prefs
+
+# MacOS file
+.DS_Store
+
+secret.properties
