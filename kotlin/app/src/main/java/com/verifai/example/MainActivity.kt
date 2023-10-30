@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.verifai.core.pub.CoreConfiguration
 import com.verifai.core.pub.Verifai
 import com.verifai.core.pub.VerifaiLogger
+import com.verifai.core.pub.exceptions.CanceledException
 import com.verifai.core.pub.exceptions.LicenseNotValidException
 import com.verifai.core.pub.listeners.ResultListener
 import com.verifai.core.pub.result.CoreResult
@@ -60,14 +61,13 @@ class MainActivity : AppCompatActivity() {
     private fun start() {
         val license = BuildConfig.verifaiLicense
         // Use the license that has been obtained from the Verifai dashboard
-        Verifai.setLicense(this@MainActivity, license)
-
+        Verifai.setLicense(this, license)
         Verifai.configure(
             CoreConfiguration(
                 enableVisualInspection = true,
             )
         )
-        Verifai.start(this@MainActivity, object : ResultListener {
+        Verifai.start(this, object : ResultListener {
             override fun onSuccess(result: CoreResult) {
                 coreResult = result
                 val intent = Intent(this@MainActivity, VerifaiResultActivity::class.java)
@@ -75,9 +75,13 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onError(e: Throwable) {
-                // We are sorry, something wrong happened.
-                if (e is LicenseNotValidException) {
-                    Log.d("Authentication", "Authentication failed")
+                when (e) {
+                    is LicenseNotValidException -> {
+                        Log.d("Authentication", "Authentication failed")
+                    }
+                    is CanceledException -> {
+                        Log.d("Canceled", "User canceled the Verifai flow")
+                    }
                 }
             }
         }, "kotlin-example-core")

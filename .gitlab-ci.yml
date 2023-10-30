@@ -5,7 +5,7 @@ stages:
 # --- Build ---
 
 android build sdk:
-  image: alvrme/alpine-android:android-31-jdk11
+  image: alvrme/alpine-android:android-34-jdk17
   stage: build
   artifacts:
     expire_in: 8 hours
