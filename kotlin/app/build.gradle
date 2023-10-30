@@ -4,8 +4,9 @@ plugins {
 }
 
 android {
-    compileSdkVersion 33
-    buildToolsVersion "31.0.0"
+    namespace 'com.verifai.example'
+
+    compileSdk 34
 
     buildFeatures {
         viewBinding true
@@ -20,7 +21,7 @@ android {
     defaultConfig {
         applicationId "com.verifai.example.kotlin"
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode 3
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -46,7 +47,7 @@ android {
 
 ext {
     // Verifai sdk version
-    verifai_version = "6.0.0"
+    verifai_version = "6.1.1"
 }
 
 dependencies {

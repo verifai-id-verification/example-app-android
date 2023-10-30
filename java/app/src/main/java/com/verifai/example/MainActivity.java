@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.verifai.core.pub.CoreConfiguration;
 import com.verifai.core.pub.Verifai;
 import com.verifai.core.pub.VerifaiLogger;
+import com.verifai.core.pub.exceptions.CanceledException;
 import com.verifai.core.pub.exceptions.LicenseNotValidException;
 import com.verifai.core.pub.listeners.ResultListener;
 import com.verifai.core.pub.result.CoreResult;
@@ -91,7 +92,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onError(@NotNull Throwable throwable) {
-                Log.e("main", throwable.getMessage());
+                if (throwable instanceof LicenseNotValidException) {
+                    Log.e("Authentication", "Authentication failed");
+                } else if (throwable instanceof CanceledException) {
+                    Log.e("Canceled", "User canceled the Verifai flow");
+                }
             }
         };
         Verifai.start(this, resultListener, "java-example-core");
